@@ -1,0 +1,22 @@
+golint:
+  tags:
+    - noc
+  image: vpgrp/golang
+  script:
+    - golint
+
+lines_length:
+  tags:
+    - noc
+  script:
+    - >
+      bash <(curl -s
+      https://gitlab.com/yue-script/checks/raw/master/check_lines_length.sh)
+
+git_history:
+  tags:
+    - noc
+  script:
+    - >
+      bash <(curl -s
+      https://gitlab.com/yue-script/checks/raw/master/check_git_history.sh)
