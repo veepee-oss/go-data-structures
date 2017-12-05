@@ -2,23 +2,23 @@
 
 1. [Overview](#overview)
 2. [Description](#module-description)
-3. [Setup](#setup)
-4. [Usage](#usage)
-5. [Limitations](#limitations)
 6. [Development](#development)
 7. [Miscellaneous](#miscellaneous)
 
 ## Overview
 
-Write a short description here.
+This is the directory for the data-structures.
 
 ## Description
 
-Write a longer description here.
+For now there are :
+	- Stack
+	- Queue
 
-## Setup
-
-Write here how to setp the project.
+Soon :
+	- BTree
+	- Tree
+	- Graph
 
 ## Development
 
