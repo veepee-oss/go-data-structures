@@ -2,12 +2,17 @@ golint:
   tags:
     - noc
   image: vpgrp/golang
+  stage: test
   script:
-    - golint
+    - go get github.com/GeertJohan/fgt
+    - >
+      for i in $(find . | grep "\.go" | xargs dirname | sort | uniq);
+      do cd "$i" && fgt golint; cd - > /dev/null; done;
 
 lines_length:
   tags:
     - noc
+  stage: test
   script:
     - >
       bash <(curl -s
@@ -16,7 +21,53 @@ lines_length:
 git_history:
   tags:
     - noc
+  stage: test
   script:
     - >
       bash <(curl -s
       https://gitlab.com/yue-script/checks/raw/master/check_git_history.sh)
+
+gotestcover:
+  tags:
+    - noc
+  image: vpgrp/golang
+  stage: test
+  script:
+    - mkdir coverage
+    - cp -r . /go/src/${CI_PROJECT_NAME}
+    - cd /go/src
+    - >
+      for i in $(find . | grep .go | xargs dirname | sort | uniq);
+      do go test -coverprofile=$(echo $i | sed 's@/@_@g').cover.out
+      -coverpkg ./... $i; done
+    - >
+      echo "mode: set" > coverage.out && cat ._*.cover.out | grep -v 'mode:' |
+      sort -r | awk '{if($1 != last) {print $0;last=$1}}' >>
+      coverage.out && rm ._*.cover.out
+    - >
+      go tool cover -html=coverage.out
+      -o ${CI_PROJECT_DIR}/coverage/index.html
+    - >
+      echo Code Coverage=$(awk "BEGIN {print
+      ($(cat ${CI_PROJECT_DIR}/coverage/index.html |
+      grep -P '\(\d+.?\d+%\)' -o | tr -d '(%)' | sed ':a;N;$!ba;s@\n@+@g'))/
+      $(cat ${CI_PROJECT_DIR}/coverage/index.html |
+      grep -P '\(\d+.?\d+%\)' | wc -l)}")%
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}/coverage/
+
+pages:
+  tags:
+    - noc
+  stage: deploy
+  dependencies:
+    - gotestcover
+  script:
+    - mv coverage/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - develop

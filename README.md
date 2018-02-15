@@ -1,4 +1,7 @@
-# opennoc-data-structures ![License][license-img]
+# opennoc-data-structures
+[![License][lcs]](LICENSE)
+[![build status][bld]][prj]
+[![coverage report][cvr]](http://opennoc.pages.vpgrp.io/data-structures)
 
 1. [Overview](#overview)
 2. [Description](#module-description)
@@ -34,5 +37,7 @@ request.
   ╚═(███)═╝
    ╚═(███)═╝
 ```
-
-[license-img]: https://img.shields.io/badge/license-Apache-blue.svg
+[lcs]: https://img.shields.io/badge/license-Apache-blue.svg
+[bld]: https://git.vpgrp.io/opennoc/data-structures/badges/develop/build.svg
+[cvr]: https://git.vpgrp.io/opennoc/data-structures/badges/develop/coverage.svg
+[prj]: https://git.vpgrp.io/opennoc/data-structures/commits/develop
