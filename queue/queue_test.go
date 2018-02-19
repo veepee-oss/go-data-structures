@@ -52,10 +52,8 @@ func TestPopQueueEmpty(t *testing.T) {
 func TestPopQueueOneElement(t *testing.T) {
   queue := new(Queue)
   queue.Push(1)
-  ret, err := queue.Pop()
-  if 1 == ret {
-    fmt.Printf("")
-  } else {
+  _, err := queue.Pop()
+  if nil != err {
     t.Error(err)
   }
 }
@@ -70,7 +68,7 @@ func TestPopQueueSimple(t *testing.T) {
     v, e := queue.Pop()
     t.Logf("value = %v, err = %s\n", v, e)
   }
-  if false == queue.IsEmpty() {
+  if !queue.IsEmpty() {
     t.Error("Pop is not correctly")
   }
 }

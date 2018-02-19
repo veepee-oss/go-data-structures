@@ -2,49 +2,52 @@ package stack
 
 import "errors"
 
-// Hide node struct
-// Two members : a data interface{}
-// and a pointer to node
+var (
+  // ErrEmptyStack is an error global to check if a stack is empty or not
+  ErrEmptyStack = errors.New("Stack is empty")
+)
+
+// node hide struct.
+// Two members : a data interface{} and a pointer to node.
 type node struct {
   Data interface{}
   Next *node
 }
 
-// Member fonction init
-// Init node with d parameter for its data
-// next to nil
-func (n *node) init(d interface{}) {
+// init member function.
+// Init node with d parameter for its data next to nil.
+func newNode(d interface{}) *node {
+  n := new(node)
   n.Data = d
   n.Next = nil
+  return n
 }
 
-// Stack structure
-// One member : a pointer of node that is
-// the head of the Stack
+// Stack structure.
+// One member : a pointer of node that is the head of the Stack.
 type Stack struct {
   Head *node
 }
 
-// Member function IsEmpty
-// Check if stack is empty
+// IsEmpty member function
+// Check if stack is empty.
 func (st *Stack) IsEmpty() bool {
   return nil == st.Head
 }
 
-// Member function Push
-// Add d (data) parameter to the stack
+// Push member function
+// Add d (data) parameter to the stack.
 func (st *Stack) Push(d interface{}) {
-  elem := new(node)
-  elem.init(d)
+  elem := newNode(d)
   elem.Next = st.Head
   st.Head = elem
 }
 
-// Member function Pop
-// Delete the head of the stack
+// Pop Member function.
+// Delete the head of the stack.
 func (st *Stack) Pop() (interface{}, error) {
   if st.IsEmpty() {
-    return nil, errors.New("Stack is empty")
+    return nil, ErrEmptyStack
   }
   ret := st.Head.Data
   st.Head = st.Head.Next

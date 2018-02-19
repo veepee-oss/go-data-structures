@@ -8,13 +8,11 @@ import (
 func TestStackEmpty(t *testing.T) {
   stack := new(Stack)
   if !stack.IsEmpty() {
-    t.Error("Problem with the function empty")
-    t.Error("Is not empty while yes")
+    t.Error("Problem with the function IsEmpty")
   }
   stack.Push(0)
   if stack.IsEmpty() {
-    t.Error("Problem with the function empty or push")
-    t.Error("Empty while not")
+    t.Error("Problem with the function IsEmpty or Push")
   }
 }
 
@@ -29,7 +27,7 @@ func TestStackPushSimple(t *testing.T) {
 func TestStackPopEmpty(t *testing.T) {
   stack := new(Stack)
   d, e := stack.Pop()
-  if e == nil {
+  if e != ErrEmptyStack {
     t.Errorf("Error is not null %v, indeed Stack is empty", d)
   }
 }
@@ -42,7 +40,7 @@ func TestStackPushAndPop(t *testing.T) {
   }
   for idx := 0; 10 > idx; idx++ {
     d, e := stack.Pop()
-    if e != nil {
+    if nil != e {
       t.Errorf("Problem with stack, last value is %v", d)
     }
   }
