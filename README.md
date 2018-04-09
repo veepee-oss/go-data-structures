@@ -10,18 +10,19 @@
 
 ## Overview
 
-This is the directory for the data-structures.
+This repository contains data structures that's missing in Golang standard.
 
 ## Description
 
 For now there are :
-	- Stack
-	- Queue
+  - Stack
+  - Queue
+  - General Tree
 
 Soon :
-	- BTree
-	- Tree
-	- Graph
+  - BTree
+  - Tree
+  - Graph
 
 ## Development
 
